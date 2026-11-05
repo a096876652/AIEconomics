@@ -20,27 +20,91 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    /* 主背景：淺灰藍 */
     .stApp {
-        background-color: #0b1120;
-        color: #e5e7eb;
+        background-color: #F3F6FA;
+        color: #243247;
     }
+
+    /* 側邊欄 */
     [data-testid="stSidebar"] {
-        background-color: #111827;
+        background-color: #E7EDF5;
     }
-    [data-testid="stMetric"] {
-        background-color: #172235;
-        border: 1px solid #26364d;
-        padding: 15px;
-        border-radius: 10px;
+
+    /* 側邊欄文字 */
+    [data-testid="stSidebar"] * {
+        color: #243247;
     }
+
+    /* 標題 */
     h1, h2, h3 {
-        color: #e5e7eb;
+        color: #17365D !important;
+        font-weight: 700;
     }
-    div[data-testid="stAlert"] {
+
+    /* 一般文字 */
+    p, label, .stMarkdown {
+        color: #34445B;
+    }
+
+    /* KPI 卡片 */
+    [data-testid="stMetric"] {
+        background-color: #FFFFFF;
+        border: 1px solid #DCE4EF;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 2px 8px rgba(30, 50, 80, 0.05);
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: #64748B !important;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #17365D !important;
+        font-weight: 700;
+    }
+
+    [data-testid="stMetricDelta"] {
+        font-weight: 600;
+    }
+
+    /* 按鈕 */
+    .stButton > button {
+        background-color: #1D4E89;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-weight: 600;
+    }
+
+    .stButton > button:hover {
+        background-color: #2867A5;
+        color: white;
+        border: none;
+    }
+
+    /* 分隔線 */
+    hr {
+        border-color: #D6DFEA;
+    }
+
+    /* 圖表容器 */
+    [data-testid="stPlotlyChart"] {
+        background-color: #FFFFFF;
+        border: 1px solid #E0E7F0;
+        border-radius: 12px;
+        padding: 10px;
+    }
+
+    /* 資訊區塊 */
+    [data-testid="stAlert"] {
         border-radius: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 st.title("🌐 全球總體經濟與金融指標儀表板")
 st.caption("GLOBAL MACROECONOMIC & FINANCIAL DASHBOARD")
