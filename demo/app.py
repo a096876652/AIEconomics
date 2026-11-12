@@ -119,7 +119,7 @@ div[data-testid="stSelectbox"] label, div[data-testid="stTextInput"] label {
 # =========================================================
 st.markdown("""
 <div class="hero">
-  <div class="hero-title">🐻 小熊總經研究室</div>
+  <div class="hero-title">總經研究室</div>
   <div class="hero-sub">把複雜的總體經濟與金融市場，整理成一眼就看懂的每日儀表板。</div>
 </div>
 """, unsafe_allow_html=True)
