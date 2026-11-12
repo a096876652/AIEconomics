@@ -474,8 +474,9 @@ with tab_news:
 """
                     with st.spinner("AI 正在整理新聞線索..."):
                         response = client.models.generate_content(
-                            model = "gemini-flash-latest",
-                            contents=prompt,
+    model="gemini-3.8-flash",
+    contents=prompt,
+)
                         )
                     st.markdown(response.text or "AI 沒有回傳可顯示的文字。")
                 except Exception as e:
