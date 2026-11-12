@@ -473,10 +473,10 @@ with tab_news:
 限制：只根據標題做初步分析；不要虛構新聞內文、數據、官員發言或市場反應。若標題資訊不足，請明確標示。
 """
                     with st.spinner("AI 正在整理新聞線索..."):
-                        response = client.models.generate_content(
-    model="gemini-3.8-flash",
-    contents=prompt,
-)
+                        response = client.models.generate_content
+                        ( model="gemini-3.8-flash",
+                        contents=prompt,
+                        )
                         )
                     st.markdown(response.text or "AI 沒有回傳可顯示的文字。")
                 except Exception as e:
