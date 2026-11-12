@@ -418,114 +418,24 @@ def fetch_google_news(keyword):
 
 def analyze_news_with_gemini(api_key, news_items):
 
-    
-def analyze_news_with_gemini(api_key, news_items):
-
     if not api_key:
-        raise ValueError("尚未設定 Gemini API Key")
+        raise ValueError(
+            "尚未設定 Gemini API Key"
+        )
 
     if not news_items:
-        raise ValueError("目前沒有新聞資料")
+        raise ValueError(
+            "目前沒有新聞資料"
+        )
 
-    client = genai.Client(api_key=api_key)
-
-    news_text = "\n".join([
-        f"{i+1}. {item['title']}"
-        for i, item in enumerate(news_items)
-    ])
-
-    prompt = f"""
-你是一位華爾街總體經濟分析師。
-
-請分析以下財經新聞：
-
-{news_text}
-
-請使用繁體中文提供專業分析：
-
-一、整體市場情緒
-1. 情緒分數 0～100
-2. 市場目前偏向樂觀或悲觀
-3. 主要原因
-
-二、聯準會貨幣政策
-1. 鷹派、鴿派或中立
-2. 未來利率政策可能方向
-
-三、美國總體經濟
-1. CPI 通膨影響
-2. 就業市場影響
-3. 經濟成長影響
-
-四、金融市場
-1. 美元
-2. 美國10年期公債殖利率
-3. S&P 500
-4. 台灣加權指數
-
-五、逐條新聞分析
-請製作表格：
-新聞標題、經濟意涵、鷹鴿立場、判斷信心。
-
-六、總結
-提出三個值得持續追蹤的經濟指標。
-
-請勿虛構新聞內容及數據。
-只能根據新聞標題進行初步判斷。
-"""
-
-    # 依序使用三個官方穩定模型
-    model_list = [
-        "gemini-3.8-flash",
-        "gemini-3.7-flash",
-        "gemini-3.6-flash"
-    ]
-
-    last_error = None
-
-    for model_name in model_list:
-
-        try:
-
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt
-            )
-
-            if not response.text:
-                raise ValueError("AI 沒有回傳文字內容")
-
-            return (
-                f"**本次使用模型：{model_name}**\n\n"
-                + response.text
-            )
-
-        except Exception as e:
-
-            last_error = e
-
-            error_text = str(e).lower()
-
-            status_code = getattr(e, "code", None)
-
-            is_503 = (
-                status_code == 503
-                or "503" in error_text
-                or "unavailable" in error_text
-            )
-
-            if is_503:
-                continue
-
-            # 非 503 錯誤，不盲目切換模型
-            raise
-
-    raise RuntimeError(
-        "三個 Gemini 模型目前都無法完成請求。\n"
-        "Google AI 服務可能暫時超載，請稍後重試。\n"
-        f"最後錯誤：{last_error}"
+    client = genai.Client(
+        api_key=api_key
     )
 
+    news_text = "\n".join([
+        f"{i + 1}. {item['title']}"
+        for i, item in enumerate(news_items)
+    ])
 
     prompt = f"""
 你是一位華爾街總體經濟研究員。
