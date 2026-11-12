@@ -13,8 +13,8 @@ from google import genai
 # 1. 頁面設定與視覺風格
 # =========================================================
 st.set_page_config(
-    page_title="小熊總經研究室｜市場儀表板",
-    page_icon="🐻",
+    page_title="總經研究室｜市場儀表板",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
