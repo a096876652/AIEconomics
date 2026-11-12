@@ -451,38 +451,67 @@ with tab_news:
                     unsafe_allow_html=True,
                 )
         with news_right:
+           
+        with news_right:
             st.markdown("### 🤖 AI 鷹鴿派分析")
+
             if not gemini_key:
-                st.info("請在左側輸入 Gemini API Key，或在 Streamlit Secrets 設定 GEMINI_API_KEY。")
-            elif st.button("🐻 開始分析新聞", type="primary", key="analyze_news"):
+                st.info("請在左側輸入 Gemini API Key。")
+
+            elif st.button(
+                "✨ 開始分析新聞",
+                type="primary",
+                key="analyze_news"
+            ):
                 try:
-                    client = genai.Client(api_key=gemini_key)
-                    titles = "\n".join([f"{i+1}. {x['title']}" for i, x in enumerate(news_items)])
+                    client = genai.Client(
+                        api_key=gemini_key
+                    )
+
+                    titles = "\n".join([
+                        f"{i+1}. {x['title']}"
+                        for i, x in enumerate(news_items)
+                    ])
+
                     prompt = f"""
-你是一位審慎的總體經濟研究員。請根據以下新聞標題做初步分類，不可把標題推論當成已確認事實。
-新聞：
+你是一位專業的總體經濟分析師。
+
+請分析以下財經新聞：
+
 {titles}
 
-請用繁體中文輸出：
-1. 整體政策情緒：偏鷹／偏鴿／中立／訊息不足
-2. 市場情緒分數：0 到 100，並說明 50 代表中性
-3. 三個主要觀察主題
-4. 逐條新聞表格：標題摘要、可能的政策含意、情緒（鷹／鴿／中立）、判斷信心（高／中／低）
-5. 最後列出需要再查證的資訊
+請使用繁體中文回答：
 
-限制：只根據標題做初步分析；不要虛構新聞內文、數據、官員發言或市場反應。若標題資訊不足，請明確標示。
+1. 整體市場情緒分數（0～100）
+2. 聯準會政策立場（鷹派、鴿派、中立）
+3. 主要經濟事件與市場影響
+4. 對美國 CPI 的可能影響
+5. 對美債殖利率及美元的可能影響
+6. 對台灣股市的可能影響
+7. 逐條新聞分析表格
+
+請勿虛構新聞內容或數據。
+若標題資訊不足，請明確標示。
+
 """
-                    with st.spinner("AI 正在整理新聞線索..."):
-                        response = client.models.generate_content
-                         model="gemini-3.8-flash",
-                        contents=prompt,
-                    st.markdown(response.text or "AI 沒有回傳可顯示的文字。")
+
+                    with st.spinner("AI 正在分析財經新聞..."):
+
+                        response = client.models.generate_content(
+                            model="gemini-3.8-flash",
+                            contents=prompt,
+                        )
+
+                    st.markdown(
+                        response.text or "AI 沒有回傳分析內容。"
+                    )
+
                 except Exception as e:
-                    st.error(f"AI 分析失敗：{e}")
-                    st.caption("若出現 503 UNAVAILABLE，通常代表模型服務暫時繁忙；可稍後重試。若出現 404，請檢查模型名稱是否仍受 API 支援。")
-    else:
-        st.warning("目前沒有找到新聞，請換一組關鍵字再搜尋。")
-    st.caption("提醒：新聞標題的 AI 分析只是輿論線索整理，不等於完整新聞查證，也不是投資建議。")
+                    st.error("AI 分析失敗")
+                    st.code(str(e))
+                    st.caption(
+                        "請檢查 API Key、模型權限及 API 回傳訊息。"
+                    )
 
 # ---------------------------------------------------------
 # Tab 5：資料下載
