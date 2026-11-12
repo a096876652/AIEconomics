@@ -1,7 +1,7 @@
-streamlit>=1.40.0
-pandas>=2.1.0
-plotly>=5.20.0
-yfinance>=0.2.50
-fredapi>=0.5.2
-feedparser>=6.0.11
+streamlit
+pandas
+plotly
+yfinance
+fredapi
+feedparser
 google-genai>=1.0.0
